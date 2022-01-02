@@ -3,7 +3,7 @@ const TOGGLE_TODO = "todos/TOGGLE_TODO";
 const DELETE_TODO = "todos/DELETE_TODO";
 const CHANGE_TODO = "todos/CHANGE_TODO";
 
-const initState = [];
+const initState = localStorage.getItem('todos') ?  JSON.parse(localStorage.getItem('todos')) : [];
 
 export const todosReducer = (state = initState, action) => {
   switch (action.type) {
@@ -21,7 +21,7 @@ export const todosReducer = (state = initState, action) => {
     case CHANGE_TODO:
       return state.map((item) => {
         if (item.id === action.payload.id) {
-          return { ...item, title: action.payload.title };
+          return { ...item, title: action.payload.title, deadline: action.payload.deadline };
         }
         return item;
       });
@@ -45,10 +45,11 @@ export const deleteTodo = (id) => ({
   payload: id,
 });
 
-export const changeTodo = (id, newTitle) => ({
+export const changeTodo = (id, newTitle, newDeadline) => ({
   type: CHANGE_TODO,
   payload: {
     id,
-    title: newTitle,  
+    title: newTitle,
+    deadline: newDeadline,
   },
 });
