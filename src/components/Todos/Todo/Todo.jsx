@@ -44,6 +44,9 @@ const Todo = ({ todo, toggleTodo, deleteTodo, changeTodo }) => {
             id={todo.id}
             onChange={handleInputChange}
             checked={todo.completed}
+            style={{
+              cursor: "pointer",
+            }}
           />
 
           <label
@@ -52,6 +55,9 @@ const Todo = ({ todo, toggleTodo, deleteTodo, changeTodo }) => {
               "form-check-label ps-3 "
             }
             htmlFor={todo.id}
+            style={{
+              cursor: "pointer",
+            }}
           >
             {todo.title}
           </label>
@@ -64,6 +70,7 @@ const Todo = ({ todo, toggleTodo, deleteTodo, changeTodo }) => {
           <button
             className="btn btn-warning"
             onClick={() => setEditMode(!editMode)}
+            title="Edit todo item"
           >
             Edit
           </button>

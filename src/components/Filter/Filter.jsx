@@ -12,21 +12,15 @@ const Filter = ({ changeDateRange, changeShowTodos, changeTitle }) => {
   const completedFilterRef = useRef(null);
   const titleFilterRef = useRef(null);
 
-  const handleFilter = () => {
-    changeDateRange(dateRangeRef.current.value);
-    changeShowTodos(completedFilterRef.current.value);
-    changeTitle(titleFilterRef.current.value);
-  };
-  
   const handleShowAll = () => {
+    changeTitle("");
     changeDateRange("30");
     changeShowTodos("all");
-    changeTitle('');
   };
 
   return (
     <div
-      className="col-6 offset-1 mt-3"
+      className="col-8 mt-3"
       style={{
         boxSizing: "border-box",
       }}
@@ -38,6 +32,9 @@ const Filter = ({ changeDateRange, changeShowTodos, changeTitle }) => {
           ref={titleFilterRef}
           className="form-control mb-3"
           placeholder="By title"
+          onChange={() => {
+            changeTitle(titleFilterRef.current.value);
+          }}
         />
       </div>
       <div>
@@ -55,22 +52,28 @@ const Filter = ({ changeDateRange, changeShowTodos, changeTitle }) => {
           max={30}
           defaultValue={7}
           ref={dateRangeRef}
-          onChange={(e) => setRangeValue(e.target.value)}
+          onChange={(e) => {
+            setRangeValue(e.target.value);
+            changeDateRange(dateRangeRef.current.value);
+          }}
         />
       </div>
       <div className="mb-3">
-        <select ref={completedFilterRef} className="form-select">
+        <select
+          ref={completedFilterRef}
+          className="form-select"
+          onChange={() => {
+            changeShowTodos(completedFilterRef.current.value);
+          }}
+        >
           <option value="all">Both completed and uncomplete</option>
           <option value="completed">Completed</option>
           <option value="uncomplete">Uncomplete</option>
         </select>
       </div>
       <div className="d-flex justify-content-between">
-        <button className="btn btn-warning" onClick={handleFilter}>
-          Filter todos
-        </button>
         <button className="btn btn-success" onClick={handleShowAll}>
-          Show all todos
+          Clear filters
         </button>
       </div>
     </div>

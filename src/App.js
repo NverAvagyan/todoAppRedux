@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="container px-5">
       <div className="container d-flex border-2 border-bottom border-warning pb-3 mb-2">
-        <Form className="col-6" />
-        <Filter className="col-6" />
+        <Filter />
+        <Form />
       </div>
       <Todos />
     </div>
